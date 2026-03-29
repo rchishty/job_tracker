@@ -71,7 +71,7 @@ export class ApplicationDetailComponent implements OnInit {
     this.editingId = interview.id;
     this.formData = {
       interviewDate: interview.interviewDate
-        ? new Date(interview.interviewDate).toISOString().slice(0, 16)
+        ? String(interview.interviewDate).slice(0, 16)
         : '',
       interviewType: interview.interviewType,
       notes: interview.notes
@@ -87,7 +87,7 @@ export class ApplicationDetailComponent implements OnInit {
     const payload: Interview = {
       id: this.editingId ?? 0,
       application: this.application!,
-      interviewDate: new Date(this.formData.interviewDate),
+      interviewDate: this.formData.interviewDate as any,
       interviewType: this.formData.interviewType,
       notes: this.formData.notes,
       contact: null as any
