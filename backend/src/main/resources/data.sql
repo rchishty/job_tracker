@@ -7,10 +7,8 @@ VALUES (1, 'Applied'),
 INSERT IGNORE INTO companies (id, name, location, industry)
 VALUES (1, 'Google', 'Mountain View, CA', 'Technology'),
        (2, 'Microsoft', 'Redmond, WA', 'Technology'),
-       (3, 'Peraton', 'Chantilly, VA', 'Defense');
-
-INSERT IGNORE INTO companies (id, name, location, industry)
-VALUES (4, 'Amazon', 'Seattle, WA', 'Technology'),
+       (3, 'Peraton', 'Chantilly, VA', 'Defense'),
+       (4, 'Amazon', 'Seattle, WA', 'Technology'),
        (5, 'Lockheed Martin', 'Bethesda, MD', 'Defense');
 
 INSERT IGNORE INTO applications (id, position_title, date_applied, salary, notes, status_id, company_id)

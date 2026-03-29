@@ -1,7 +1,11 @@
 package com.jobtracker.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "interviews")
@@ -12,6 +16,7 @@ public class Interview {
 
     @ManyToOne
     @JoinColumn(name = "application_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Application application;
 
     @Column(name = "interview_date", nullable = false)
