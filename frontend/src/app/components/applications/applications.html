@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="header">
+    <h1>Job Applications</h1>
+    <button class="btn btn-primary" (click)="openCreateForm()">+ New Application</button>
+  </div>
+
+  <!-- Form Panel: shown when creating or editing -->
+  <div class="form-panel" *ngIf="showForm">
+    <h2>{{ isEditing ? 'Edit Application' : 'New Application' }}</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Position Title</label>
+        <input type="text" [(ngModel)]="formData.positionTitle" placeholder="e.g. Software Engineer" />
+      </div>
+      <div class="form-group">
+        <label>Date Applied</label>
+        <input type="date" [(ngModel)]="formData.dateApplied" />
+      </div>
+      <div class="form-group">
+        <label>Salary</label>
+        <input type="number" [(ngModel)]="formData.salary" placeholder="e.g. 90000" />
+      </div>
+      <div class="form-group">
+        <label>Company</label>
+        <!-- Options are fetched from the database dynamically -->
+        <select [(ngModel)]="formData.companyId">
+          <option [ngValue]="null">Select a company</option>
+          <option *ngFor="let c of companies" [ngValue]="c.id">{{ c.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <!-- Options are fetched from the database dynamically -->
+        <select [(ngModel)]="formData.statusId">
+          <option [ngValue]="null">Select a status</option>
+          <option *ngFor="let s of statuses" [ngValue]="s.id">{{ s.name }}</option>
+        </select>
+      </div>
+      <div class="form-group full-width">
+        <label>Notes</label>
+        <textarea [(ngModel)]="formData.notes" rows="3" placeholder="Any notes..."></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" (click)="save()">Save</button>
+      <button class="btn btn-secondary" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Applications Table -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Company</th>
+          <th>Status</th>
+          <th>Date Applied</th>
+          <th>Salary</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of applications">
+          <td>{{ app.positionTitle }}</td>
+          <td>{{ app.company?.name }}</td>
+          <td><span class="badge">{{ app.status?.name }}</span></td>
+          <td>{{ app.dateApplied | date:'mediumDate' }}</td>
+          <td>{{ app.salary | currency }}</td>
+          <td class="actions">
+            <button class="btn btn-sm btn-primary" [routerLink]="['/applications', app.id]">View</button>
+            <button class="btn btn-sm btn-secondary" (click)="openEditForm(app)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="delete(app.id)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="applications.length === 0">
+          <td colspan="6" class="empty">No applications yet. Add one above.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

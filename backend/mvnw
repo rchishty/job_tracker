@@ -1,0 +1,35 @@
+#!/bin/sh
+# Maven Wrapper script for Unix/macOS/Git Bash on Windows
+# Downloads Maven if not present, then runs it
+
+set -e
+
+MAVEN_WRAPPER_PROPERTIES=".mvn/wrapper/maven-wrapper.properties"
+MAVEN_HOME="$HOME/.m2/wrapper/dists"
+
+if [ ! -f "$MAVEN_WRAPPER_PROPERTIES" ]; then
+    echo "Error: Could not find $MAVEN_WRAPPER_PROPERTIES" >&2
+    exit 1
+fi
+
+DIST_URL=$(grep 'distributionUrl' "$MAVEN_WRAPPER_PROPERTIES" | cut -d'=' -f2-)
+DIST_NAME=$(basename "$DIST_URL" .zip)
+MAVEN_DIR="$MAVEN_HOME/$DIST_NAME"
+
+if [ ! -d "$MAVEN_DIR" ]; then
+    echo "Downloading Maven from $DIST_URL..."
+    mkdir -p "$MAVEN_DIR"
+    if command -v curl > /dev/null; then
+        curl -fsSL "$DIST_URL" -o "$MAVEN_DIR/maven.zip"
+    elif command -v wget > /dev/null; then
+        wget -q "$DIST_URL" -O "$MAVEN_DIR/maven.zip"
+    else
+        echo "Error: curl or wget required" >&2
+        exit 1
+    fi
+    unzip -qo "$MAVEN_DIR/maven.zip" -d "$MAVEN_DIR"
+    rm "$MAVEN_DIR/maven.zip"
+fi
+
+MAVEN_BIN=$(find "$MAVEN_DIR" -name 'mvn' -path '*/bin/mvn' | head -1)
+exec "$MAVEN_BIN" "$@"

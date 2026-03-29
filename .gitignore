@@ -1,0 +1,31 @@
+# ===== Frontend (Angular/Node) =====
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.env
+
+# ===== Backend (Spring Boot/Maven) =====
+backend/target/
+backend/*.class
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.iml
+claude.md
+Plan.md
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== Environment / Secrets =====
+.env
+*.env.local
+application-local.properties
+application-secret.properties

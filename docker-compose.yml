@@ -1,0 +1,36 @@
+services:
+  mysql-db:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: job_tracker
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      -  "3306:3306"
+    volumes:
+      -  mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-padmin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  backend:
+    build: ./backend
+    restart: on-failure
+    ports:
+      -  "8080:8080"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+  
+  frontend:
+    build: ./frontend
+    restart: on-failure
+    ports:
+      -  "4200:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:

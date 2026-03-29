@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="header">
+    <h1>Application Report</h1>
+  </div>
+
+  <!-- Filter Panel -->
+  <div class="form-panel">
+    <h2>Filters</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Start Date</label>
+        <input type="date" [(ngModel)]="filters.startDate" />
+      </div>
+      <div class="form-group">
+        <label>End Date</label>
+        <input type="date" [(ngModel)]="filters.endDate" />
+      </div>
+      <div class="form-group">
+        <label>Company</label>
+        <select [(ngModel)]="filters.companyId">
+          <option [ngValue]="null">All Companies</option>
+          <option *ngFor="let c of companies" [ngValue]="c.id">{{ c.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select [(ngModel)]="filters.statusId">
+          <option [ngValue]="null">All Statuses</option>
+          <option *ngFor="let s of statuses" [ngValue]="s.id">{{ s.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" (click)="runReport()">Run Report</button>
+      <button class="btn btn-secondary" (click)="clearFilters()">Clear</button>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid" *ngIf="report">
+    <div class="stat-card">
+      <div class="stat-value">{{ report.total }}</div>
+      <div class="stat-label">Total Applications</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{ report.acceptanceRate | number:'1.1-1' }}%</div>
+      <div class="stat-label">Offer Rate</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{ report.avgResponseTimeDays | number:'1.1-1' }}</div>
+      <div class="stat-label">Avg Days to Interview</div>
+    </div>
+  </div>
+
+  <!-- Status Breakdown -->
+  <div class="breakdown-panel" *ngIf="report && statusBreakdownEntries().length > 0">
+    <h2>Status Breakdown</h2>
+    <div class="breakdown-list">
+      <div class="breakdown-item" *ngFor="let entry of statusBreakdownEntries()">
+        <span class="badge">{{ entry.name }}</span>
+        <span class="breakdown-count">{{ entry.count }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Table -->
+  <div class="table-wrapper" *ngIf="hasSearched">
+    <table>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Company</th>
+          <th>Status</th>
+          <th>Date Applied</th>
+          <th>Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of report?.apps">
+          <td>{{ app.positionTitle }}</td>
+          <td>{{ app.company?.name }}</td>
+          <td><span class="badge">{{ app.status?.name }}</span></td>
+          <td>{{ app.dateApplied | date:'mediumDate' }}</td>
+          <td>{{ app.salary | currency }}</td>
+        </tr>
+        <tr *ngIf="report?.apps?.length === 0">
+          <td colspan="5" class="empty">No applications match the selected filters.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
