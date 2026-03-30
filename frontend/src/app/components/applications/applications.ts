@@ -68,7 +68,7 @@ export class ApplicationsComponent implements OnInit {
 
   openEditForm(app: Application) {
     this.isEditing = true;
-    this.editingId = app.id;
+    this.editingId = app.id!;
     this.formData = {
       positionTitle: app.positionTitle,
       // Convert date to YYYY-MM-DD string for the date input

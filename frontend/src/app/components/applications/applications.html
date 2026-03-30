@@ -70,7 +70,7 @@
           <td class="actions">
             <button class="btn btn-sm btn-primary" [routerLink]="['/applications', app.id]">View</button>
             <button class="btn btn-sm btn-secondary" (click)="openEditForm(app)">Edit</button>
-            <button class="btn btn-sm btn-danger" (click)="delete(app.id)">Delete</button>
+            <button class="btn btn-sm btn-danger" (click)="delete(app.id!)">Delete</button>
           </td>
         </tr>
         <tr *ngIf="applications.length === 0">

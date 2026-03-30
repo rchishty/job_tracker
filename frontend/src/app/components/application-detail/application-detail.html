@@ -87,7 +87,7 @@
           <td class="notes-cell">{{ i.notes }}</td>
           <td class="actions">
             <button class="btn btn-sm btn-secondary" (click)="openEditForm(i)">Edit</button>
-            <button class="btn btn-sm btn-danger" (click)="delete(i.id)">Delete</button>
+            <button class="btn btn-sm btn-danger" (click)="delete(i.id!)">Delete</button>
           </td>
         </tr>
         <tr *ngIf="interviews.length === 0">

@@ -68,7 +68,7 @@ export class ApplicationDetailComponent implements OnInit {
 
   openEditForm(interview: Interview) {
     this.isEditing = true;
-    this.editingId = interview.id;
+    this.editingId = interview.id!;
     this.formData = {
       interviewDate: interview.interviewDate
         ? String(interview.interviewDate).slice(0, 16)
