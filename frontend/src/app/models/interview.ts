@@ -2,7 +2,7 @@ import { Application } from './application';
 import { Contact } from './contact';
 
 export interface Interview {
-    id: number;
+    id?: number;
     application: Application;
     interviewDate: Date;
     interviewType: string;

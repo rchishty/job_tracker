@@ -29,6 +29,7 @@ public class InterviewService {
     }
 
     public Interview createInterview(Interview interview) {
+        interview.setId(null);
         return repo.save(interview);
     }
 

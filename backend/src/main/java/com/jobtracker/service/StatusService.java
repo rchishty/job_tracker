@@ -25,6 +25,7 @@ public class StatusService {
     }
 
     public Status createStatus(Status status) {
+        status.setId(null);
         return repo.save(status);
     }
 

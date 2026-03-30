@@ -25,6 +25,7 @@ public class ApplicationService {
     }
 
     public Application createApplication(Application app) {
+        app.setId(null);
         return repo.save(app);
     }
 

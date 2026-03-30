@@ -25,6 +25,7 @@ public class ContactService {
     }
 
     public Contact createContact(Contact contact) {
+        contact.setId(null);
         return repo.save(contact);
     }
 

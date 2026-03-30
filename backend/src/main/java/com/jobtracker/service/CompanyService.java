@@ -25,6 +25,7 @@ public class CompanyService {
     }
 
     public Company createCompany(Company company) {
+        company.setId(null);
         return repo.save(company);
     }
 
