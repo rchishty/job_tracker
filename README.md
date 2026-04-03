@@ -51,8 +51,3 @@ To run this application locally for development or testing:
 * Node.js & npm
 * MySQL Server (running locally on port 3306)
 * Docker (optional, for local container testing)
-
-### 1. Database Setup
-Create a local MySQL database named `job_tracker`:
-```sql
-CREATE DATABASE job_tracker;
