@@ -3,7 +3,9 @@ package com.jobtracker.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "contacts")
+@Table(name = "contacts", indexes = {
+    @Index(name = "idx_contacts_company_id", columnList = "company_id")
+})
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
